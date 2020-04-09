@@ -1,0 +1,10 @@
+.contenido {
+    margin: auto;
+    margin-top: 100px;
+    width: auto;
+    background-color: rgb(233, 209, 178);
+}
+
+.contenido h1 {
+    text-align: center;
+}
