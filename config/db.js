@@ -18,3 +18,19 @@ sequelize
 module.exports = {
     sequelize
 }
+
+const {Usuario} = require('./../models/usuario');
+const {Titulo} = require('./../models/titulo');
+const {Comentario} = require('./../models/comentario');
+
+Usuario.hasMany(Titulo);
+Titulo.belongsTo(Usuario);
+
+Usuario.hasMany(Comentario);
+Comentario.belongsTo(Usuario);
+
+//sequelize.sync();
+
+(async () => {
+    
+})

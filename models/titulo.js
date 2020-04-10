@@ -9,7 +9,14 @@ Titulo.init({
     title: {
         type: DataTypes.STRING(40),
         allowNull: false,
+    },
+    publicacion: { 
+      type: DataTypes.STRING(220),
+      
+     
+    
     }
+    
 }, {
     sequelize,
     modelName: 'titulo'

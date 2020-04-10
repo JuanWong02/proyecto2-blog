@@ -33,9 +33,9 @@
     </div>
   </nav>
 
-  <h1><%= title %></h1>
+  <h1>Crear Publicacion</h1>
 
-  <form action="/blog/<%= action %> " method="post">
+  <form action="/blog/create " method="post">
     <div>
         <label for="name">Usuario</label>
         <% if (locals.usuario) { %>
@@ -48,15 +48,28 @@
         <% if (locals.errorMessage) { %>
             <p style="color: red"><%=  errorMessage %> </p>
         <% } %>
-
-
+        
             <div>
                 <label for="titulo">Titulo</label>
                 <% if (locals.titulo) { %>
                     <input type="hidden" id="id" name="id" value="<%= titulo.id  %> ">
                     <input type="text" id="name" name="title" value="<%= titulo.name  %> ">
                     <% } else { %>
-                        <input type="text" id="name" name="name">
+                        <input type="text" id="name" name="title">
+                    <% } %>
+                </div>
+                <% if (locals.errorMessage) { %>
+                    <p style="color: red"><%=  errorMessage %> </p>
+                <% } %>
+            </div>
+
+            <div>
+                <label for="publicacion">Mensaje</label>
+                <% if (locals.publicacion) { %>
+                    <input type="hidden" id="id" name="id" value="<%= publicacion.id  %> ">
+                    <input type="text" id="name" name="publicacion" value="<%= publicacion.name  %> ">
+                    <% } else { %>
+                        <input type="text" id="name" name="publicacion">
                     <% } %>
                 </div>
                 <% if (locals.errorMessage) { %>

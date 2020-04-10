@@ -3,17 +3,17 @@ const {sequelize} = require('./../config/db');
 
 const Model = Sequelize.Model;
 
-class Publicacion extends Model {};
+class Publica extends Model {};
 
-Publicacion.init({
-    text: {
+Publica.init({
+    name: {
         type: DataTypes.STRING(220),
         allowNull: false,
     }
 }, {
     sequelize,
-    modelName: 'publicacion'
+    modelName: 'comentario'
 });
 
-//Publicacion.sync();
-module.exports = {Publicacion};
+//Publica.sync();
+module.exports = {Publica};

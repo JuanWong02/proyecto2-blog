@@ -6,7 +6,7 @@ const Model = Sequelize.Model;
 class Comentario extends Model {};
 
 Comentario.init({
-    coment: {
+    comment: {
         type: DataTypes.STRING(180),
         allowNull: false,
     }
