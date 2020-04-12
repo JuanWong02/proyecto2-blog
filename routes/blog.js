@@ -3,7 +3,6 @@ var express = require('express');
 var router = express.Router();
 
 const { Usuario } = require('./../models/usuario');
-const {Titulo} = require('./../models/titulo');
 const {Publicacion} = require('./../models/publicacion');
 const {Comentario} = require('./../models/comentario');
 const blogController = require('./../controllers/blog.controller');
@@ -16,9 +15,19 @@ router.get('/create', blogController.create);
 router.post('/create', blogController.createPost);
 
 
- //games/delete
 
-//GET games/create
+
+
+ //blog/delete
+ router.post('/delete/:id',blogController.delete);
+
+
+ router.get('/ver',blogController.ver);
+
+ 
+
+
+
 
 
 module.exports = router;

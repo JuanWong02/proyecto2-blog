@@ -34,19 +34,20 @@
 
   <div class="contenido">
     <h1>ULTIMAS PUBLICACIONES</h1>
-
-    <% titulos.forEach(titulo) => { %>
-      <li>
-        <p><%= titulo.title  %> </p>
-      </li>
-     
-    <% }) %>
-    <% usuarios.forEach(usuario) => { %>
-      <li>
-        <p><%= usuario.name  %> </p>
-      </li>
-     
-    <% }) %>
+    <ul>
+      <% publicaciones.forEach((publicacion) => { %>
+          <li>
+              <h3><a href="/blog/ver/<%= publicacion.id %>"></a><%= publicacion.title %> </h3>
+              <h5><%= publicacion.usuario.name %> </h5>
+              <h6><%= publicacion.updatedAt %> </h6> 
+              <button a href="/blog/update/<%= publicacion.id  %> ">Editar</button>
+              <button type="button" onclick="deletePublicacion(<%= publicacion.id  %>)" >Borrar</button>
+              
+              
+          </li>
+     <% }); %>
+  </ul>
+   
     
   </div>
 
@@ -56,7 +57,10 @@
   <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+  crossorigin="anonymous">
+</script>
+<script src="/javascripts/index.js"></script>
+  
 </body>
 </html>
   

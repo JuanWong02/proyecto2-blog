@@ -20,17 +20,22 @@ module.exports = {
 }
 
 const {Usuario} = require('./../models/usuario');
-const {Titulo} = require('./../models/titulo');
+const {Publicacion} = require('./../models/publicacion');
 const {Comentario} = require('./../models/comentario');
 
-Usuario.hasMany(Titulo);
-Titulo.belongsTo(Usuario);
+Usuario.hasMany(Publicacion);
+Publicacion.belongsTo(Usuario);  //getusuario()
 
 Usuario.hasMany(Comentario);
-Comentario.belongsTo(Usuario);
+Comentario.belongsTo(Usuario); //getgetusuario()
 
-//sequelize.sync();
+Publicacion.hasMany(Comentario);
+Comentario.belongsTo(Publicacion); //getpublicacion()
+
+
+
+//sequelize.sync({force: true});
 
 (async () => {
-    
+
 })

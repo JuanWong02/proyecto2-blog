@@ -1,39 +1,57 @@
 const {Usuario} = require('./../models/usuario');
-const {Titulo} = require('./../models/titulo');
+const {Publicacion} = require('./../models/publicacion');
 const {Comentario} = require('./../models/comentario');
 
 let controller = {};
 
 controller.read = function(req, res, next) {
-    res.render('blog/index');
+    
+    //mostar en index
+    Publicacion.findAll({
+    attributes: ['title','updatedAt'],
+	include: {
+	model: Usuario,
+	attributes: ['name'],
+    },
+    
+})
 
-}
-
-Titulo.findAll()
-.then((titulos) => {
+.then((publicaciones) => {
+    publicaciones.forEach((publicacion) => {
+        console.log(JSON.stringify(publicacion));
+    })
     res.render('blog/index', {
-        titulos: titulos
+        publicaciones: publicaciones
+        
     });
+    
 })
 .catch((err) => {
-    console.error('Error trying to query titulos: ',err);
-    res.render('blog/index', {
-        titulos: []
+    console.error('Error al mostrar datos: ',err);
+    res.render('blog/index',{
+        publicaciones: []
     });
 });
 
-Usuario.findAll()
-.then((usuarios) => {
-    res.render('blog/index', {
-        usuarios: usuarios
-    });
-})
-.catch((err) => {
-    console.error('Error trying to query usuarios: ',err);
-    res.render('blog/index', {
-        usuarios: []
-    });
-});
+    
+};
+//borrar publicacion
+controller.delete = (req ,res ,next) => {
+    let id = req.params.id;
+    //delete from publicacion
+    Publicacion.destroy({
+        where: {
+        id: id,
+    }
+
+    })
+    .then(() => {
+        res.redirect('/blog/');
+    }) .catch((err) => {
+        console.error('Error al intentar borrar la publicacion',err);
+        res.redirect('/blog/');
+    })
+};
 
 
 
@@ -42,12 +60,12 @@ Usuario.findAll()
 
 
 
+//enviar publicacion
 controller.create = (req, res, next) => {
     console.log(req.query);
 
     res.render('blog/publicar', {
-        title: 'Crear Publicacion',
-        action: 'create'
+      
     });
 };
 controller.createPost = (req, res, next) => {
@@ -57,31 +75,56 @@ controller.createPost = (req, res, next) => {
     let title = req.body.title;
     let publicacion = req.body.publicacion;
 
+    let errors = {
+       
+        
+        
+    }
+
+
+
     if (!name || name === ''){
-       return  res.render('blog/create',{errorMessage: 'Please type a valid name.'});
+
+        errors.name = "Please type a valid name"
+
+       
     }
     if (!title || title === ''){
-        return  res.render('blog/create',{errorMessage: 'Please type a valid title.'});
+
+        errors.title = "Please type a valid title"
+
      }
      if (!publicacion || publicacion === ''){
-        return  res.render('blog/create',{errorMessage: 'Please type a valid message.'});
+        errors.publicacion = "Please type a valid Message"
+
      } 
+     if (!name || name === '' || !title || title === '' || !publicacion || publicacion === ''){
+       return res.render('blog/publicar', {
+        errors,
+        name: name,
+        title: title,
+        publicacion: publicacion
+        
+    })
+}
+
+    
 
     let usuario = {
         name,
     };
-    let titulo = {
-        title,
-    };
-    let publi = {
-        publicacion,
-    };
+   
     //CREAR Y GUARDAR USUARIO
     Usuario.create(usuario)
     //caso exito
-    .then(() => {
-       Titulo.create(titulo)
-       Titulo.create(publi)
+    .then((usuario) => {
+        let publi = {
+            title,
+            cpublicacion: publicacion,
+            usuarioId: usuario.id,
+            
+        };
+       Publicacion.create(publi)
 
     .then(() => {
         res.redirect('/blog');
@@ -97,11 +140,26 @@ controller.createPost = (req, res, next) => {
     .catch((err) => {
         console.error('Error trying to create post',err);
         //volver a enviar formulario como HTML
-        res.render('blog/publicar');
+        res.render('blog/create');
     });
 
     
-    };
+
+    controller.ver = (req,res,next) => {
+        let mas = req.params.id;
+        Publicacion.findOne({
+            where: {
+                id: mas
+            }
+        }).then(() => {
+            res.redirect('blog/ver')
+        }).catch((err) => {
+            console.error('Error al mostrar el contenido',err);
+            res.redirect('/blog/')
+        })
+    }
+
+};
     
 
     
