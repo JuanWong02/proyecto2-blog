@@ -37,7 +37,7 @@
     <ul>
       <% publicaciones.forEach((publicacion) => { %>
           <li>
-              <h3><a href="/blog/ver/<%= publicacion.id %>"></a><%= publicacion.title %> </h3>
+              <h3><a href="/blog/ver/<%= publicacion.id %>"><%= publicacion.title %> </a></h3>
               <h5><%= publicacion.usuario.name %> </h5>
               <h6><%= publicacion.updatedAt %> </h6> 
               <button a href="/blog/update/<%= publicacion.id  %> ">Editar</button>

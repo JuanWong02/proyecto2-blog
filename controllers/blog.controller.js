@@ -8,7 +8,7 @@ controller.read = function(req, res, next) {
     
     //mostar en index
     Publicacion.findAll({
-    attributes: ['title','updatedAt'],
+    attributes: ['title','updatedAt','id'],
 	include: {
 	model: Usuario,
 	attributes: ['name'],
@@ -145,22 +145,47 @@ controller.createPost = (req, res, next) => {
 
     
 
-    controller.ver = (req,res,next) => {
-        let mas = req.params.id;
-        Publicacion.findOne({
-            where: {
-                id: mas
-            }
-        }).then(() => {
-            res.redirect('blog/ver')
-        }).catch((err) => {
-            console.error('Error al mostrar el contenido',err);
-            res.redirect('/blog/')
-        })
-    }
+
 
 };
+controller.ver = (req,res,next) => {
+    let mas = req.params.id;
+    Publicacion.findOne({
+        where: {
+            id: mas
+        }
+    }).then(() => {
+        res.render('blog/vercontenido')
+    }).catch((err) => {
+        console.error('Error al mostrar el contenido',err);
+        res.render('/blog')
+    })
+
+    let id = req.params.id; 
+
+Publicacion.findByPk(id, {
+    include: {
+        model: Usuario,
+        attributes: ['name']
+    }
+})
+.then((contenido) => {
+    res.render('blog/vercontenido', {
+       contenido: contenido
+        
+    });
     
+})
+.catch((err) => {
+    console.error('Error al mostrar datos: ',err);
+    res.render('blog/vercontenido',{
+        contenido: []
+    });
+});
+
+}
+    
+
 
     
 

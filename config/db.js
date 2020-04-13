@@ -23,8 +23,12 @@ const {Usuario} = require('./../models/usuario');
 const {Publicacion} = require('./../models/publicacion');
 const {Comentario} = require('./../models/comentario');
 
-Usuario.hasMany(Publicacion);
-Publicacion.belongsTo(Usuario);  //getusuario()
+Usuario.hasMany(Publicacion, {
+    onDelete: 'CASCADE',
+});
+Publicacion.belongsTo(Usuario, {
+    onDelete: 'CASCADE'
+});  //getusuario()
 
 Usuario.hasMany(Comentario);
 Comentario.belongsTo(Usuario); //getgetusuario()

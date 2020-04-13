@@ -15,14 +15,20 @@ router.get('/create', blogController.create);
 router.post('/create', blogController.createPost);
 
 
+//router.get('/comentar',blogController.comentar);
 
+//router.post('/comentar',blogController.comentarPost);
 
 
  //blog/delete
  router.post('/delete/:id',blogController.delete);
 
 
- router.get('/ver',blogController.ver);
+ router.get('/ver/:id',blogController.ver);
+
+
+
+ 
 
  
 
