@@ -148,6 +148,7 @@ controller.createPost = (req, res, next) => {
 
 
 };
+//VER PUBLICACION Y COMENTARIOS
 controller.ver = (req,res,next) => {
     let id = req.params.id;
     Publicacion.findByPk(id,{
@@ -156,8 +157,33 @@ controller.ver = (req,res,next) => {
           attributes: ['name']
       }
     }).then((contenido) => {
-        res.render('blog/vercontenido',{
-            contenido: contenido
+        Comentario.findAll({
+            attributes: ['comment','updatedAt'],
+            include: {
+                model: Usuario,
+                attributes: ['name'],    
+                
+            },
+            where: {
+                publicacionId: id,
+            }
+            
+        }).then((comentarios) => {
+            comentarios.forEach((comentario) => {
+                console.log(JSON.stringify(comentario));
+            })
+            res.render('blog/vercontenido',{
+                contenido: contenido,
+                comentarios: comentarios,
+
+            });
+        })
+        .catch((err) => {
+            console.error('Error al mostrar el contenido',err);
+            res.render('blog/vercontenido',{
+                contenido: [],
+                comentarios: [],
+            })
         })
         
     }).catch((err) => {
@@ -168,9 +194,17 @@ controller.ver = (req,res,next) => {
     })
 
 }
+
+
+
+
+
+
+
 //COMENTAR
 controller.comentar = (req, res, next) => {
     console.log(req.query);
+    let id = req.params.id
 
     res.render('blog/comentarios',{ 
         id: id,
@@ -258,44 +292,73 @@ controller.comentarPost = (req, res, next) => {
 
 //update
 controller.update = (req, res, next) => {
-    let id = req.params.id;
-    
-    Publicacion.findAll({
-        where: {
-            id: id
-        }
-    }).then((publicaciones) => {
-        let publicacion = publicaciones[0];
+    console.log(req.query)
+    let id = req.params.id
 
+    Publicacion.findByPk(id,{
+        attributes: ['title','cpublicacion']
+    })
+    .then((datos) => {
         res.render('blog/editar',{
-            publicacion: publicacion
+            datos,
+            id: id,
         });
     }).catch((err) => {
         console.error('Error trying to render update form',err);
         res.redirect('/blog');
-    });
-
+    })
     
 };
 controller.updatePost = (req, res, next) => {
-    let publicacion = req.body;
+    console.log(req.body);
 
-    //game.name
-    //game.id
+    let title = req.body.title;
+    let publicacion = req.body.publicacion;
 
-    //UPDATE games SET name = 'Uncharted 4 WHERE id = 1'
-    Publicacion.update(publicacion, {
-        where: {
-            id: publicacion.id
-        }
-    }).then(() => {
-        res.redirect('/blog');
-    }).catch((err) => {
-        console.error('Error trying to update publicacion',err);
-        res.redirect('/blog')
+    let errors = {
+       
+        
+        
+    }
 
+
+
+    if (!title || title === ''){
+
+        errors.title = "Please type a valid Title"
+
+       
+    }
+     if (!publicacion || publicacion === ''){
+        errors.publicacion = "Please type a valid Message"
+
+     } 
+     if (!title || title === '' || !publicacion || publicacion === ''){
+       return res.render('blog/editar', {
+        errors,
+        title: title,
+        publicacion: publicacion,
+        
     })
-};
+}
+let id = req.params.id;
+
+Publicacion.findByPk(id)
+.then((publicacion) => {
+    publicacion.title = title;
+    publicacion.cpublicacion = publicacion;
+}).catch((err) => {
+    console.error('Error trying to render update form',err);
+        res.redirect('/blog');
+})
+publicacion.save().then()
+
+}
+        
+
+
+
+   
     
 
 module.exports = controller;

@@ -21,7 +21,7 @@ router.post('/comentar/:id',blogController.comentarPost);
 
 router.get('/update/:id',blogController.update);
 
-router.post('/update', blogController.updatePost);
+router.post('/update/:id',blogController.updatePost);
 
 
  //blog/delete
@@ -29,6 +29,8 @@ router.post('/update', blogController.updatePost);
 
 
  router.get('/ver/:id',blogController.ver);
+
+
 
  
 

@@ -36,36 +36,36 @@
 
   <h1>Editar Publicacion</h1>
 
-  <form action="/blog/update " method="post">
-        <div>
-                <label for="titulo">Titulo</label>
-                <% if (locals.titulo) { %>
-                    <input type="hidden" id="id" name="id" value="<%= titulo.id  %> ">
-                    <input type="text" id="name" name="title"  value="<%= locals.title ? title : '' %>">
-                    <% } else { %>
-                        <input type="text" id="name" name="title" value="<%= locals.title ? title : '' %>" >
-                    <% } %>
-                </div>
-                <% if (locals.errors && locals.errors.title) { %>
-                    <p style="color: red"><%=  errors.title %> </p>
-                <% } %>
-            </div>
+  <form action="/blog/update/<%= datos.id %>"   method="post">
+    <div>
+        <label for="titulo">Titulo</label>
+        <% if (locals.titulo) { %>
+            <input type="hidden" id="id" name="id" value="<%= titulo.id  %> ">
+            <input type="text" id="name" name="title"  value="<%= locals.title ? publicacion.title : '' %>">
+            <% } else { %>
+                <input type="text" id="name" name="title" value="<%= datos.title %>" >
+            <% } %>
+        </div>
+        <% if (locals.errors && locals.errors.title) { %>
+            <p style="color: red"><%=  errors.title %> </p>
+        <% } %>
+    </div>
 
-            <div>
-                <label for="publicacion">Mensaje</label>
-                <% if (locals.publicacion) { %>
-                    <input type="hidden" id="id" name="id" value="<%= publicacion.id  %> ">
-                    <input type="text" id="name" name="publicacion" value="<%= locals.publicacion ? publicacion : '' %>">
-                    <% } else { %>
-                        <input type="text" id="name" name="publicacion" value="<%= locals.publicacion ? publicacion : '' %>">
-                    <% } %>
-                </div>
-                <% if (locals.errors && locals.errors.publicacion) { %>
-                    <p style="color: red"><%=  errors.publicacion %> </p>
-                <% } %>
-            </div>
-
-        <button>Publicar</button>
+    <div>
+        <label for="publicacion">Mensaje</label>
+        <% if (locals.publicacion) { %>
+            <input type="hidden" id="id" name="id" value="<%= publicacion.id  %> ">
+            <input type="text" id="name" name="publicacion" value="<%= locals.publicacion ? publicacion.cpublicacion : '' %>">
+            <% } else { %>
+                <input type="text" id="name" name="publicacion" value="<%= datos.cpublicacion %>">
+            <% } %>
+        </div>
+        <% if (locals.errors && locals.errors.publicacion) { %>
+            <p style="color: red"><%=  errors.publicacion %> </p>
+        <% } %>
+    </div>
+    <input type="hidden" name="id" value="<%= id %>" >
+        <button>Actualizar Publicacion</button>
     </form>
 </body>
 </html>

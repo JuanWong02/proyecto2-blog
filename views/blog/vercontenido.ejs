@@ -38,13 +38,21 @@
 <h2><%= contenido.title  %> </h2>
 <h3><%= contenido.usuario.name  %> </h3>
 <h4><%= contenido.cpublicacion  %> </h4>
-<h5><%= contenido.updatedAt  %> </h5>
+<h6><%= contenido.updatedAt  %> </h6>
 
   <h2>Comentarios</h2>
   <button type="button" onclick="location.href='/blog/comentar/<%= contenido.id  %> '" >Crear Comentario</button>
-
-
-  
+  <ul>
+    <% comentarios.forEach((comentario) => { %>
+        <li>
+            <h5><%= comentario.usuario.name  %> </h5>
+            <h4><%= comentario.comment  %> </h4>
+            <h6><%= comentario.updatedAt  %> </h6>
+            
+            
+        </li>
+   <% }); %>
+</ul>
 
 </body>
 </html>

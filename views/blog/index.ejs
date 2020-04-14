@@ -39,7 +39,7 @@
               <h3><a href="/blog/ver/<%= publicacion.id %>"><%= publicacion.title %> </a></h3>
               <h5><%= publicacion.usuario.name %> </h5>
               <h6><%= publicacion.updatedAt %> </h6> 
-              <button type="button" onclick="location.href='/blog/update/:id'">Editar</button>
+              <button type="button" onclick="location.href='/blog/update/<%= publicacion.id  %>'">Editar</button>
               <button type="button" onclick="deletePublicacion(<%= publicacion.id  %>)" >Borrar</button>
               
               
