@@ -15,9 +15,9 @@ router.get('/create', blogController.create);
 router.post('/create', blogController.createPost);
 
 
-router.get('/comentar',blogController.comentar);
+router.get('/comentar/:id',blogController.comentar);
 
-router.post('/comentar',blogController.comentarPost);
+router.post('/comentar/:id',blogController.comentarPost);
 
 router.get('/update/:id',blogController.update);
 

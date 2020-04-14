@@ -36,7 +36,7 @@
 
   <h1>Crear Comentario</h1>
 
-  <form action="/blog/comentar " method="post">
+  <form action="/blog/comentar/<%= id  %> "  method="post">
     <div>
         <label for="name">Usuario</label>
         <% if (locals.usuario) { %>
@@ -63,7 +63,7 @@
                     <p style="color: red"><%=  errors.comentario %> </p>
                 <% } %>
             </div>
-
+            <input type="hidden" name="id" value="<%= id %>" >
         <button>Comentar</button>
     </form>
 </body>

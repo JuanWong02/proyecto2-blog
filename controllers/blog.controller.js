@@ -172,8 +172,8 @@ controller.ver = (req,res,next) => {
 controller.comentar = (req, res, next) => {
     console.log(req.query);
 
-    res.render('blog/comentarios', {
-      
+    res.render('blog/comentarios',{ 
+        id: id,
     });
 };
 controller.comentarPost = (req, res, next) => {
@@ -209,7 +209,7 @@ controller.comentarPost = (req, res, next) => {
     })
 }
 
-    let publicacion = req.params.id
+    let publicacion = req.body.id
 
     let usuario = {
         name,
@@ -224,7 +224,7 @@ controller.comentarPost = (req, res, next) => {
         let comment = {
             comment: comentario,
             usuarioId: usuario.id,
-            publicacionId: publicacion,
+            publicacionId: publicacion.id,
             
         };
        Comentario.create(comment)
