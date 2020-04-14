@@ -4,3 +4,4 @@ function deletePublicacion(id) {
         window.location.reload();
     })
 }
+

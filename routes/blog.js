@@ -15,9 +15,13 @@ router.get('/create', blogController.create);
 router.post('/create', blogController.createPost);
 
 
-//router.get('/comentar',blogController.comentar);
+router.get('/comentar',blogController.comentar);
 
-//router.post('/comentar',blogController.comentarPost);
+router.post('/comentar',blogController.comentarPost);
+
+router.get('/update/:id',blogController.update);
+
+router.post('/update', blogController.updatePost);
 
 
  //blog/delete
@@ -25,6 +29,8 @@ router.post('/create', blogController.createPost);
 
 
  router.get('/ver/:id',blogController.ver);
+
+ 
 
 
 

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jc's BLOG</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
     <!-- Navigation -->
@@ -40,7 +39,7 @@
               <h3><a href="/blog/ver/<%= publicacion.id %>"><%= publicacion.title %> </a></h3>
               <h5><%= publicacion.usuario.name %> </h5>
               <h6><%= publicacion.updatedAt %> </h6> 
-              <button a href="/blog/update/<%= publicacion.id  %> ">Editar</button>
+              <button type="button" onclick="location.href='/blog/update/:id'">Editar</button>
               <button type="button" onclick="deletePublicacion(<%= publicacion.id  %>)" >Borrar</button>
               
               

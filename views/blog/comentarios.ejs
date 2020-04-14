@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Comentario </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./index.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+            <img src="./../../images/logo.jpg" alt="">
+          </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+            <a class="nav-link" href="/blog">Inicio
+                </a>
+          </li>
+             <li class="nav-item">
+            <a class="nav-link" href="/">Crear Post
+                <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <h1>Crear Comentario</h1>
+
+  <form action="/blog/comentar " method="post">
+    <div>
+        <label for="name">Usuario</label>
+        <% if (locals.usuario) { %>
+            <input type="hidden" id="id" name="id" value="<%= usuario.id  %> ">
+            <input type="text" id="name" name="name" value="<%= locals.name ? name : '' %>">
+            <% } else { %>
+                <input type="text" id="name" name="name" value="<%= locals.name ? name : '' %>"  >
+            <% } %>
+        </div>
+        <% if (locals.errors && locals.errors.name) { %>
+            <p style="color: red"><%=  errors.name %> </p>
+        <% } %>
+        
+            <div>
+                <label for="comentario">Comentario</label>
+                <% if (locals.comentario) { %>
+                    <input type="hidden" id="id" name="id" value="<%= comentario.id  %> ">
+                    <input type="text" id="name" name="comentario"  value="<%= locals.comentario ? comentario : '' %>">
+                    <% } else { %>
+                        <input type="text" id="name" name="comentario" value="<%= locals.comentario ? comentario : '' %>" >
+                    <% } %>
+                </div>
+                <% if (locals.errors && locals.errors.comentario) { %>
+                    <p style="color: red"><%=  errors.comentario %> </p>
+                <% } %>
+            </div>
+
+        <button>Comentar</button>
+    </form>
+</body>
+</html>
