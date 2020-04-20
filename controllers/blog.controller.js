@@ -215,6 +215,7 @@ controller.comentarPost = (req, res, next) => {
 
     let name = req.body.name;
     let comentario = req.body.comentario;
+    let id = req.body.id
 
     let errors = {
        
@@ -222,23 +223,21 @@ controller.comentarPost = (req, res, next) => {
         
     }
 
-
-
     if (!name || name === ''){
 
         errors.name = "Please type a valid name"
-
        
     }
      if (!comentario || comentario === ''){
         errors.comentario = "Please type a valid Comment"
 
      } 
-     if (!name || name === '' || !comentario || comentario === ''){
+     if (errors.name || errors.comentario){
        return res.render('blog/comentarios', {
         errors,
         name: name,
         comentario: comentario,
+        id: id,
         
     })
 }
@@ -292,68 +291,66 @@ controller.comentarPost = (req, res, next) => {
 
 //update
 controller.update = (req, res, next) => {
-    console.log(req.query)
-    let id = req.params.id
+    (async () => {
+        try {
+        
+            let id = req.params.id;
 
-    Publicacion.findByPk(id,{
-        attributes: ['title','cpublicacion']
-    })
-    .then((datos) => {
-        res.render('blog/editar',{
-            datos,
-            id: id,
-        });
-    }).catch((err) => {
-        console.error('Error trying to render update form',err);
-        res.redirect('/blog');
-    })
+            let publicacion = await Publicacion.findByPk(id)
+
+            res.render('blog/editar', {
+                id: id,
+                title: publicacion.title,
+                cpublicacion: publicacion.cpublicacion,
+            });
+        } catch (err) {
+            console.error('Error trying to edit post',err);
+            res.render('/blog')
+        }
+    })();
     
 };
 controller.updatePost = (req, res, next) => {
-    console.log(req.body);
+    (async () => {
+        try {
+            console.log('req.body',req.body)
+            let id = req.body.id;
+            let title = req.body.title;
+            let publicacion = req.body.publicacion;
 
-    let title = req.body.title;
-    let publicacion = req.body.publicacion;
+            let errors = {};
 
-    let errors = {
-       
-        
-        
-    }
+            if(!title || title === '') {
+                errors.title = 'Please type a valid title'
+            }
+            if(!publicacion || publicacion === ''){
+                errors.publicacion = 'Please type a valid message'
+            }
+            if(errors.title || errors.publicacion) {
+                return res.render('blog/editar',{
+                    errors: errors,
+                    id: id,
+                    title: title,
+                    publicacion: publicacion,
+                })
+            }
+    
+
+            let actualizacion = await Publicacion.findByPk(id);
+
+            actualizacion.title = title;
+            actualizacion.cpublicacion = publicacion;
 
 
+            await actualizacion.save();
 
-    if (!title || title === ''){
-
-        errors.title = "Please type a valid Title"
-
-       
-    }
-     if (!publicacion || publicacion === ''){
-        errors.publicacion = "Please type a valid Message"
-
-     } 
-     if (!title || title === '' || !publicacion || publicacion === ''){
-       return res.render('blog/editar', {
-        errors,
-        title: title,
-        publicacion: publicacion,
-        
-    })
-}
-let id = req.params.id;
-
-Publicacion.findByPk(id)
-.then((publicacion) => {
-    publicacion.title = title;
-    publicacion.cpublicacion = publicacion;
-}).catch((err) => {
-    console.error('Error trying to render update form',err);
-        res.redirect('/blog');
-})
-publicacion.save().then()
-
-}
+            res.redirect('/blog');
+        } catch (err) {
+            console.error('Error trying to edit post',err);
+            res.render('blog/editar')
+        }
+    })();
+};
         
 
 

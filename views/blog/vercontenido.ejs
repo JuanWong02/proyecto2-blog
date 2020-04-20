@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Publicacion </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./index.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 <body>
@@ -33,26 +32,41 @@
       </div>
     </div>
   </nav>
+
+  <div class="text-center border border-light p-5 bg-light">
   <h1>Publicacion</h1>
 
+  <div class="card">
+    <div class="card-header">
 <h2><%= contenido.title  %> </h2>
+</div>
+<div class="card-body">
 <h3><%= contenido.usuario.name  %> </h3>
 <h4><%= contenido.cpublicacion  %> </h4>
 <h6><%= contenido.updatedAt  %> </h6>
-
-  <h2>Comentarios</h2>
-  <button type="button" onclick="location.href='/blog/comentar/<%= contenido.id  %> '" >Crear Comentario</button>
+</div>
+  </div>
+</div>
+<div class="text-center border border-light p-5 bg-light">
+  <h1>Comentarios</h1>
+  <button type="button" class="btn btn-info" onclick="location.href='/blog/comentar/<%= contenido.id  %> '" >Crear Comentario</button>
+  <div class="card">
   <ul>
     <% comentarios.forEach((comentario) => { %>
         <li>
+          <div class="card-header bg-light">
             <h5><%= comentario.usuario.name  %> </h5>
+          </div>
+          <div class="card-body">
             <h4><%= comentario.comment  %> </h4>
             <h6><%= comentario.updatedAt  %> </h6>
+          </div>
             
             
         </li>
    <% }); %>
 </ul>
-
+</div>
+</div>
 </body>
 </html>

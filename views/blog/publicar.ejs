@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Publicacion </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./index.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 <body>
@@ -34,51 +33,76 @@
     </div>
   </nav>
 
-  <h1>Crear Publicacion</h1>
 
-  <form action="/blog/create " method="post">
+  <form action="/blog/create " class=" text-center border border-light p-5 bg-light" method="post">
+    
+  <h1>Crear Publicacion</h1>
+  <div class="card-body px-lg-5 pt-0">
     <div>
+        <div class="form-group">
+            <div class="md-form mt-3">
         <label for="name">Usuario</label>
         <% if (locals.usuario) { %>
             <input type="hidden" id="id" name="id" value="<%= usuario.id  %> ">
             <input type="text" id="name" name="name" value="<%= locals.name ? name : '' %>">
             <% } else { %>
-                <input type="text" id="name" name="name" value="<%= locals.name ? name : '' %>"  >
+                <input type="text" class="form-control mb-4" id="name" name="name" value="<%= locals.name ? name : '' %>"  >
             <% } %>
+        
         </div>
         <% if (locals.errors && locals.errors.name) { %>
             <p style="color: red"><%=  errors.name %> </p>
         <% } %>
-        
+    </div>
+    </div>
+    <div class="form-group">
+        <div class="md-form">
             <div>
                 <label for="titulo">Titulo</label>
                 <% if (locals.titulo) { %>
                     <input type="hidden" id="id" name="id" value="<%= titulo.id  %> ">
                     <input type="text" id="name" name="title"  value="<%= locals.title ? title : '' %>">
                     <% } else { %>
-                        <input type="text" id="name" name="title" value="<%= locals.title ? title : '' %>" >
+                        <input type="text"class="form-control mb-4" id="name" name="title" value="<%= locals.title ? title : '' %>" >
                     <% } %>
                 </div>
+            </div>
                 <% if (locals.errors && locals.errors.title) { %>
                     <p style="color: red"><%=  errors.title %> </p>
                 <% } %>
             </div>
+        </div>
 
+        <div class="form-group">
+            <div class="md-form">
             <div>
                 <label for="publicacion">Mensaje</label>
                 <% if (locals.publicacion) { %>
                     <input type="hidden" id="id" name="id" value="<%= publicacion.id  %> ">
                     <input type="text" id="name" name="publicacion" value="<%= locals.publicacion ? publicacion : '' %>">
                     <% } else { %>
-                        <input type="text" id="name" name="publicacion" value="<%= locals.publicacion ? publicacion : '' %>">
+                        <textarea class="form control w-100 " name="publicacion" id="name" cols="20" rows="5" value="<%= locals.publicacion ? publicacion : '' %>"></textarea>
                     <% } %>
+                    </div>
                 </div>
                 <% if (locals.errors && locals.errors.publicacion) { %>
                     <p style="color: red"><%=  errors.publicacion %> </p>
                 <% } %>
             </div>
-
-        <button>Publicar</button>
+        </div>
+        <div class="w-25 p-3">
+        <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect">Publicar</button>
+        </div>
+    </div>
     </form>
+
+    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+        <div class="container text-center">
+          <small>Copyright &copy; Your Website</small>
+        </div>
+      </footer>
+
+    
+    
 </body>
 </html>

@@ -22,6 +22,7 @@ module.exports = {
 const {Usuario} = require('./../models/usuario');
 const {Publicacion} = require('./../models/publicacion');
 const {Comentario} = require('./../models/comentario');
+const {Foto} = require('./../models/foto');
 
 Usuario.hasMany(Publicacion, {
     onDelete: 'CASCADE',
@@ -36,10 +37,9 @@ Comentario.belongsTo(Usuario); //getgetusuario()
 Publicacion.hasMany(Comentario);
 Comentario.belongsTo(Publicacion); //getpublicacion()
 
+Publicacion.hasOne(Foto);
 
 
-//sequelize.sync({force: true});
 
-(async () => {
+sequelize.sync({force: true});
 
-})

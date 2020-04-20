@@ -31,22 +31,27 @@
     </div>
   </nav>
 
-  <div class="contenido">
+  <div class="text-center border border-light p-5 bg-light">
     <h1>ULTIMAS PUBLICACIONES</h1>
     <ul>
       <% publicaciones.forEach((publicacion) => { %>
           <li>
+            <div class="card">
+              <div class="card-header">
               <h3><a href="/blog/ver/<%= publicacion.id %>"><%= publicacion.title %> </a></h3>
+            </div>
+            <div class="card-body">
               <h5><%= publicacion.usuario.name %> </h5>
               <h6><%= publicacion.updatedAt %> </h6> 
-              <button type="button" onclick="location.href='/blog/update/<%= publicacion.id  %>'">Editar</button>
-              <button type="button" onclick="deletePublicacion(<%= publicacion.id  %>)" >Borrar</button>
+              <button type="button" class="btn btn-info" onclick="location.href='/blog/update/<%= publicacion.id  %>'">Editar</button>
+              <button type="button" class="btn btn-danger" onclick="deletePublicacion(<%= publicacion.id  %>)" >Borrar</button>
+            </div>
               
               
           </li>
      <% }); %>
   </ul>
-   
+</div>
     
   </div>
 
