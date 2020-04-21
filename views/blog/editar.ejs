@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Publicacion </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./../../stylesheets/index.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 <body>
@@ -37,22 +38,40 @@
 
   <form action="/blog/update/<%= id %>" class=" text-center border border-light p-5 bg-light"   method="post">
     <h1>Editar Publicacion</h1>
+    <div class="card-body px-lg-5 pt-0">
     <% if (locals.id) { %> 
         <input type="hidden" name="id" value="<%= id  %> "> 
     <% } %>
+    <div>
+      <div class="form-group">
+        <div class="md-form">
     <label for="">Titulo</label>
-    <input type="text" name="title" value="<%= locals.title ? title : '' %>">
+    <input type="text" class="form-control mb-4" name="title" value="<%= locals.title ? title : '' %>">
     <% if (locals.errors && locals.errors.title) { %> 
         <p style="color: red"><%=  errors.title %> </p> 
     <% } %>
-    <br>
+        </div>
+        </div>
+  </div>
+  <div>
+  <div class="form-group">
+    <div class="md-form">
     <label for="">Mensaje</label>
-    <input type="text" name="publicacion" value="<%= locals.cpublicacion ? cpublicacion : '' %>">
+    <input type="text" class="form-control mb-4" name="publicacion" value="<%= locals.cpublicacion ? cpublicacion : '' %>">
     <% if (locals.errors && locals.errors.publicacion) { %> 
         <p style="color: red"><%=  errors.publicacion %> </p> 
     <% } %>
-    <br>
-
-    <button>Guardar</button>
+  </div>
+  </div>
+  </div>
+  <div class="w-25 p-3">
+    <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect">Guardar</button>
+    </div>
+    </div>
+    <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+      <div class="container text-center">
+        <small>Copyright &copy; JC´S BLOG</small>
+      </div>
+    </footer>
 </body>
 </html>

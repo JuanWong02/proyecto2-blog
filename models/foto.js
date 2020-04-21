@@ -14,5 +14,5 @@ Foto.init({
     modelName: 'foto'
 });
 
-Foto.sync();
+//Foto.sync();
 module.exports = {Foto};

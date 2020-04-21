@@ -41,5 +41,5 @@ Publicacion.hasOne(Foto);
 
 
 
-sequelize.sync({force: true});
+//sequelize.sync({force: true});
 

@@ -1,6 +1,7 @@
 const {Usuario} = require('./../models/usuario');
 const {Publicacion} = require('./../models/publicacion');
 const {Comentario} = require('./../models/comentario');
+const {Foto} = require('./../models/foto');
 
 let controller = {};
 
@@ -74,6 +75,7 @@ controller.createPost = (req, res, next) => {
     let name = req.body.name;
     let title = req.body.title;
     let publicacion = req.body.publicacion;
+    let url = req.body.url;
 
     let errors = {
        
@@ -98,12 +100,17 @@ controller.createPost = (req, res, next) => {
         errors.publicacion = "Please type a valid Message"
 
      } 
-     if (!name || name === '' || !title || title === '' || !publicacion || publicacion === ''){
+     if (!url || url === ''){
+        errors.url = "Please type a valid url"
+
+     } 
+     if (errors.name || errors.title || errors.publicacion || errors.url){
        return res.render('blog/publicar', {
         errors,
         name: name,
         title: title,
-        publicacion: publicacion
+        publicacion: publicacion,
+        url: url,
         
     })
 }
@@ -125,6 +132,14 @@ controller.createPost = (req, res, next) => {
             
         };
        Publicacion.create(publi)
+       .then((publi) => {
+           let foto = {
+               url,
+               publicacionId: publi.id
+           };
+           Foto.create(foto)
+       })
+       
 
     .then(() => {
         res.redirect('/blog');
@@ -152,11 +167,16 @@ controller.createPost = (req, res, next) => {
 controller.ver = (req,res,next) => {
     let id = req.params.id;
     Publicacion.findByPk(id,{
-      include: {
+      include: [{
           model: Usuario,
-          attributes: ['name']
+          attributes: ['name'],
+      }, {
+          model: Foto,
+          attributes: ['url'],
       }
+        ]
     }).then((contenido) => {
+        
         Comentario.findAll({
             attributes: ['comment','updatedAt'],
             include: {
@@ -175,6 +195,7 @@ controller.ver = (req,res,next) => {
             res.render('blog/vercontenido',{
                 contenido: contenido,
                 comentarios: comentarios,
+                
 
             });
         })

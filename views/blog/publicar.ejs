@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Publicacion </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./../../stylesheets/index.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 <body>
@@ -90,6 +91,17 @@
                 <% } %>
             </div>
         </div>
+        <h6>Agregar imagen</h6>
+        <label for="">URL</label>
+        <% if (locals.url) { %>
+            <input type="hidden" id="id" name="id" value="<%= url.id  %> ">
+            <input type="text" id="name" name="url" value="<%= locals.url ? url : '' %>">
+        <% } else { %>
+            <input type="text" name="url">
+        <% } %>
+        <% if (locals.errors && locals.errors.url) { %>
+            <p style="color: red"><%=  errors.url %> </p>
+        <% } %>
         <div class="w-25 p-3">
         <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect">Publicar</button>
         </div>
@@ -98,7 +110,7 @@
 
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
         <div class="container text-center">
-          <small>Copyright &copy; Your Website</small>
+          <small>Copyright &copy; JC´S BLOG</small>
         </div>
       </footer>
 

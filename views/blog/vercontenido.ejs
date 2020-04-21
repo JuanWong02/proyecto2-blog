@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Publicacion </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./../../stylesheets/index.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 <body>
@@ -44,6 +45,7 @@
 <h3><%= contenido.usuario.name  %> </h3>
 <h4><%= contenido.cpublicacion  %> </h4>
 <h6><%= contenido.updatedAt  %> </h6>
+<img style="width: 650px; height: 350px;" class="img-fluid img-thumbnail" src="<%= contenido.foto.url %>"  alt="">
 </div>
   </div>
 </div>
@@ -68,5 +70,10 @@
 </ul>
 </div>
 </div>
+<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+  <div class="container text-center">
+    <small>Copyright &copy; JC´S BLOG</small>
+  </div>
+</footer>
 </body>
 </html>
