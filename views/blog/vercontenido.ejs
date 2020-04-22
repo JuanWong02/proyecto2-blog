@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Publicacion </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./../../stylesheets/index.css">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Publicacion </title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./../../stylesheets/index.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
+
 <body>
-    <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
       <a class="navbar-brand" href="#">
-            <img src="./../../images/logo.jpg" alt="">
-          </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+        <img src="./../../images/logo.jpg" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="/blog">Inicio
-                </a>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/blog/create">Crear Post
-                <span class="sr-only">(current)</span>
+              <span class="sr-only">(current)</span>
             </a>
           </li>
         </ul>
@@ -35,26 +39,28 @@
   </nav>
 
   <div class="text-center border border-light p-5 bg-light">
-  <h1>Publicacion</h1>
+    <h1>Publicacion</h1>
 
-  <div class="card">
-    <div class="card-header">
-<h2><%= contenido.title  %> </h2>
-</div>
-<div class="card-body">
-<h3><%= contenido.usuario.name  %> </h3>
-<h4><%= contenido.cpublicacion  %> </h4>
-<h6><%= contenido.updatedAt  %> </h6>
-<img style="width: 650px; height: 350px;" class="img-fluid img-thumbnail" src="<%= contenido.foto.url %>"  alt="">
-</div>
+    <div class="card">
+      <div class="card-header">
+        <h2><%= contenido.title  %> </h2>
+      </div>
+      <div class="card-body">
+        <h3><%= contenido.usuario.name  %> </h3>
+        <h4><%= contenido.cpublicacion  %> </h4>
+        <h6><%= contenido.updatedAt  %> </h6>
+        <img style="width: 650px; height: 350px;" class="img-fluid img-thumbnail" src="<%= contenido.foto.url %>"
+          alt="">
+      </div>
+    </div>
   </div>
-</div>
-<div class="text-center border border-light p-5 bg-light">
-  <h1>Comentarios</h1>
-  <button type="button" class="btn btn-info" onclick="location.href='/blog/comentar/<%= contenido.id  %> '" >Crear Comentario</button>
-  <div class="card">
-  <ul>
-    <% comentarios.forEach((comentario) => { %>
+  <div class="text-center border border-light p-5 bg-light">
+    <h1>Comentarios</h1>
+    <button type="button" class="btn btn-info" onclick="location.href='/blog/comentar/<%= contenido.id  %> '">Crear
+      Comentario</button>
+    <div class="card">
+      <ul>
+        <% comentarios.forEach((comentario) => { %>
         <li>
           <div class="card-header bg-light">
             <h5><%= comentario.usuario.name  %> </h5>
@@ -63,17 +69,18 @@
             <h4><%= comentario.comment  %> </h4>
             <h6><%= comentario.updatedAt  %> </h6>
           </div>
-            
-            
+
+
         </li>
-   <% }); %>
-</ul>
-</div>
-</div>
-<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-  <div class="container text-center">
-    <small>Copyright &copy; JC´S BLOG</small>
+        <% }); %>
+      </ul>
+    </div>
   </div>
-</footer>
+  <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+    <div class="container text-center">
+      <small>Copyright &copy; JC´S BLOG</small>
+    </div>
+  </footer>
 </body>
+
 </html>

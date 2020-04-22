@@ -1,57 +1,57 @@
-const {Usuario} = require('./../models/usuario');
-const {Publicacion} = require('./../models/publicacion');
-const {Comentario} = require('./../models/comentario');
-const {Foto} = require('./../models/foto');
+const { Usuario } = require('./../models/usuario');
+const { Publicacion } = require('./../models/publicacion');
+const { Comentario } = require('./../models/comentario');
+const { Foto } = require('./../models/foto');
 
 let controller = {};
 
-controller.read = function(req, res, next) {
-    
+controller.read = function (req, res, next) {
+
     //mostar en index
     Publicacion.findAll({
-    attributes: ['title','updatedAt','id'],
-	include: {
-	model: Usuario,
-	attributes: ['name'],
-    },
-    
-})
+        attributes: ['title', 'updatedAt', 'id'],
+        include: {
+            model: Usuario,
+            attributes: ['name'],
+        },
 
-.then((publicaciones) => {
-    publicaciones.forEach((publicacion) => {
-        console.log(JSON.stringify(publicacion));
     })
-    res.render('blog/index', {
-        publicaciones: publicaciones
-        
-    });
-    
-})
-.catch((err) => {
-    console.error('Error al mostrar datos: ',err);
-    res.render('blog/index',{
-        publicaciones: []
-    });
-});
 
-    
+        .then((publicaciones) => {
+            publicaciones.forEach((publicacion) => {
+                console.log(JSON.stringify(publicacion));
+            })
+            res.render('blog/index', {
+                publicaciones: publicaciones
+
+            });
+
+        })
+        .catch((err) => {
+            console.error('Error al mostrar datos: ', err);
+            res.render('blog/index', {
+                publicaciones: []
+            });
+        });
+
+
 };
 //borrar publicacion
-controller.delete = (req ,res ,next) => {
+controller.delete = (req, res, next) => {
     let id = req.params.id;
     //delete from publicacion
     Publicacion.destroy({
         where: {
-        id: id,
-    }
+            id: id,
+        }
 
     })
-    .then(() => {
-        res.redirect('/blog/');
-    }) .catch((err) => {
-        console.error('Error al intentar borrar la publicacion',err);
-        res.redirect('/blog/');
-    })
+        .then(() => {
+            res.redirect('/blog/');
+        }).catch((err) => {
+            console.error('Error al intentar borrar la publicacion', err);
+            res.redirect('/blog/');
+        })
 };
 
 
@@ -66,7 +66,7 @@ controller.create = (req, res, next) => {
     console.log(req.query);
 
     res.render('blog/publicar', {
-      
+
     });
 };
 controller.createPost = (req, res, next) => {
@@ -78,137 +78,137 @@ controller.createPost = (req, res, next) => {
     let url = req.body.url;
 
     let errors = {
-       
-        
-        
+
+
+
     }
 
 
 
-    if (!name || name === ''){
+    if (!name || name === '') {
 
         errors.name = "Please type a valid name"
 
-       
+
     }
-    if (!title || title === ''){
+    if (!title || title === '') {
 
         errors.title = "Please type a valid title"
 
-     }
-     if (!publicacion || publicacion === ''){
+    }
+    if (!publicacion || publicacion === '') {
         errors.publicacion = "Please type a valid Message"
 
-     } 
-     if (!url || url === ''){
+    }
+    if (!url || url === '') {
         errors.url = "Please type a valid url"
 
-     } 
-     if (errors.name || errors.title || errors.publicacion || errors.url){
-       return res.render('blog/publicar', {
-        errors,
-        name: name,
-        title: title,
-        publicacion: publicacion,
-        url: url,
-        
-    })
-}
+    }
+    if (errors.name || errors.title || errors.publicacion || errors.url) {
+        return res.render('blog/publicar', {
+            errors,
+            name: name,
+            title: title,
+            publicacion: publicacion,
+            url: url,
 
-    
+        })
+    }
+
+
 
     let usuario = {
         name,
     };
-   
+
     //CREAR Y GUARDAR USUARIO
     Usuario.create(usuario)
-    //caso exito
-    .then((usuario) => {
-        let publi = {
-            title,
-            cpublicacion: publicacion,
-            usuarioId: usuario.id,
-            
-        };
-       Publicacion.create(publi)
-       .then((publi) => {
-           let foto = {
-               url,
-               publicacionId: publi.id
-           };
-           Foto.create(foto)
-       })
-       
+        //caso exito
+        .then((usuario) => {
+            let publi = {
+                title,
+                cpublicacion: publicacion,
+                usuarioId: usuario.id,
 
-    .then(() => {
-        res.redirect('/blog');
-    })
-    .catch((err) => {
-        console.error('Error trying to create post',err);
-        //volver a enviar formulario como HTML
-        res.render('blog/publicar');
-    });
-        
-    })
-    //caso error
-    .catch((err) => {
-        console.error('Error trying to create post',err);
-        //volver a enviar formulario como HTML
-        res.render('blog/create');
-    });
+            };
+            Publicacion.create(publi)
+                .then((publi) => {
+                    let foto = {
+                        url,
+                        publicacionId: publi.id
+                    };
+                    Foto.create(foto)
+                })
 
-    
+
+                .then(() => {
+                    res.redirect('/blog');
+                })
+                .catch((err) => {
+                    console.error('Error trying to create post', err);
+                    //volver a enviar formulario como HTML
+                    res.render('blog/publicar');
+                });
+
+        })
+        //caso error
+        .catch((err) => {
+            console.error('Error trying to create post', err);
+            //volver a enviar formulario como HTML
+            res.render('blog/create');
+        });
+
+
 
 
 
 };
 //VER PUBLICACION Y COMENTARIOS
-controller.ver = (req,res,next) => {
+controller.ver = (req, res, next) => {
     let id = req.params.id;
-    Publicacion.findByPk(id,{
-      include: [{
-          model: Usuario,
-          attributes: ['name'],
-      }, {
-          model: Foto,
-          attributes: ['url'],
-      }
+    Publicacion.findByPk(id, {
+        include: [{
+            model: Usuario,
+            attributes: ['name'],
+        }, {
+            model: Foto,
+            attributes: ['url'],
+        }
         ]
     }).then((contenido) => {
-        
+
         Comentario.findAll({
-            attributes: ['comment','updatedAt'],
+            attributes: ['comment', 'updatedAt'],
             include: {
                 model: Usuario,
-                attributes: ['name'],    
-                
+                attributes: ['name'],
+
             },
             where: {
                 publicacionId: id,
             }
-            
+
         }).then((comentarios) => {
             comentarios.forEach((comentario) => {
                 console.log(JSON.stringify(comentario));
             })
-            res.render('blog/vercontenido',{
+            res.render('blog/vercontenido', {
                 contenido: contenido,
                 comentarios: comentarios,
-                
+
 
             });
         })
-        .catch((err) => {
-            console.error('Error al mostrar el contenido',err);
-            res.render('blog/vercontenido',{
-                contenido: [],
-                comentarios: [],
+            .catch((err) => {
+                console.error('Error al mostrar el contenido', err);
+                res.render('blog/vercontenido', {
+                    contenido: [],
+                    comentarios: [],
+                })
             })
-        })
-        
+
     }).catch((err) => {
-        console.error('Error al mostrar el contenido',err);
+        console.error('Error al mostrar el contenido', err);
         res.render('/blog/vercontenido', {
             contenido: []
         })
@@ -227,7 +227,7 @@ controller.comentar = (req, res, next) => {
     console.log(req.query);
     let id = req.params.id
 
-    res.render('blog/comentarios',{ 
+    res.render('blog/comentarios', {
         id: id,
     });
 };
@@ -239,29 +239,29 @@ controller.comentarPost = (req, res, next) => {
     let id = req.body.id
 
     let errors = {
-       
-        
-        
+
+
+
     }
 
-    if (!name || name === ''){
+    if (!name || name === '') {
 
         errors.name = "Please type a valid name"
-       
+
     }
-     if (!comentario || comentario === ''){
+    if (!comentario || comentario === '') {
         errors.comentario = "Please type a valid Comment"
 
-     } 
-     if (errors.name || errors.comentario){
-       return res.render('blog/comentarios', {
-        errors,
-        name: name,
-        comentario: comentario,
-        id: id,
-        
-    })
-}
+    }
+    if (errors.name || errors.comentario) {
+        return res.render('blog/comentarios', {
+            errors,
+            name: name,
+            comentario: comentario,
+            id: id,
+
+        })
+    }
 
     let publicacion = req.body.id
 
@@ -270,43 +270,43 @@ controller.comentarPost = (req, res, next) => {
     };
 
     Publicacion.findByPk(publicacion)
-    .then((publicacion) => {
-    //CREAR Y GUARDAR USUARIO
-    Usuario.create(usuario)
-     //caso exito
-     .then((usuario) => {
-        let comment = {
-            comment: comentario,
-            usuarioId: usuario.id,
-            publicacionId: publicacion.id,
-            
-        };
-       Comentario.create(comment)
+        .then((publicacion) => {
+            //CREAR Y GUARDAR USUARIO
+            Usuario.create(usuario)
+                //caso exito
+                .then((usuario) => {
+                    let comment = {
+                        comment: comentario,
+                        usuarioId: usuario.id,
+                        publicacionId: publicacion.id,
 
-    .then(() => {
-        res.redirect('/blog');
-    })
-    .catch((err) => {
-        console.error('Error trying to create comment',err);
-        //volver a enviar formulario como HTML
-        res.render('blog/comentarios');
-    });
-        
-    })
-    //caso error
-    .catch((err) => {
-        console.error('Error trying to create comment',err);
-        //volver a enviar formulario como HTML
-        res.render('blog/comentarios');
-    });
+                    };
+                    Comentario.create(comment)
+
+                        .then(() => {
+                            res.redirect('/blog');
+                        })
+                        .catch((err) => {
+                            console.error('Error trying to create comment', err);
+                            //volver a enviar formulario como HTML
+                            res.render('blog/comentarios');
+                        });
+
+                })
+                //caso error
+                .catch((err) => {
+                    console.error('Error trying to create comment', err);
+                    //volver a enviar formulario como HTML
+                    res.render('blog/comentarios');
+                });
 
 
-}) .catch((err) => {
-    console.error('Error trying to create comment',err);
-    res.render('blog/comentarios')
-})
+        }).catch((err) => {
+            console.error('Error trying to create comment', err);
+            res.render('blog/comentarios')
+        })
 }
-   
+
 
 
 
@@ -314,7 +314,7 @@ controller.comentarPost = (req, res, next) => {
 controller.update = (req, res, next) => {
     (async () => {
         try {
-        
+
             let id = req.params.id;
 
             let publicacion = await Publicacion.findByPk(id)
@@ -325,37 +325,37 @@ controller.update = (req, res, next) => {
                 cpublicacion: publicacion.cpublicacion,
             });
         } catch (err) {
-            console.error('Error trying to edit post',err);
+            console.error('Error trying to edit post', err);
             res.render('/blog')
         }
     })();
-    
+
 };
 controller.updatePost = (req, res, next) => {
     (async () => {
         try {
-            console.log('req.body',req.body)
+            console.log('req.body', req.body)
             let id = req.body.id;
             let title = req.body.title;
             let publicacion = req.body.publicacion;
 
             let errors = {};
 
-            if(!title || title === '') {
+            if (!title || title === '') {
                 errors.title = 'Please type a valid title'
             }
-            if(!publicacion || publicacion === ''){
+            if (!publicacion || publicacion === '') {
                 errors.publicacion = 'Please type a valid message'
             }
-            if(errors.title || errors.publicacion) {
-                return res.render('blog/editar',{
+            if (errors.title || errors.publicacion) {
+                return res.render('blog/editar', {
                     errors: errors,
                     id: id,
                     title: title,
                     publicacion: publicacion,
                 })
             }
-    
+
 
             let actualizacion = await Publicacion.findByPk(id);
 
@@ -367,16 +367,16 @@ controller.updatePost = (req, res, next) => {
 
             res.redirect('/blog');
         } catch (err) {
-            console.error('Error trying to edit post',err);
+            console.error('Error trying to edit post', err);
             res.render('blog/editar')
         }
     })();
 };
-        
 
 
 
-   
-    
+
+
+
 
 module.exports = controller;

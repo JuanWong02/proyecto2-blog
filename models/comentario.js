@@ -1,9 +1,9 @@
-const {Sequelize, DataTypes} = require('sequelize');
-const {sequelize} = require('./../config/db');
+const { Sequelize, DataTypes } = require('sequelize');
+const { sequelize } = require('./../config/db');
 
 const Model = Sequelize.Model;
 
-class Comentario extends Model {};
+class Comentario extends Model { };
 
 Comentario.init({
     comment: {
@@ -16,4 +16,4 @@ Comentario.init({
 });
 
 //Comentario.sync();
-module.exports = {Comentario};
+module.exports = { Comentario };

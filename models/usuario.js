@@ -1,9 +1,9 @@
-const {Sequelize, DataTypes} = require('sequelize');
-const {sequelize} = require('./../config/db');
+const { Sequelize, DataTypes } = require('sequelize');
+const { sequelize } = require('./../config/db');
 
 const Model = Sequelize.Model;
 
-class Usuario extends Model {};
+class Usuario extends Model { };
 
 Usuario.init({
     name: {
@@ -16,4 +16,4 @@ Usuario.init({
 });
 
 //Usuario.sync();
-module.exports = {Usuario};
+module.exports = { Usuario };

@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Publicacion </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="./../../stylesheets/index.css">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Publicacion </title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./../../stylesheets/index.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
+
 <body>
-    <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
       <a class="navbar-brand" href="#">
-            <img src="./../../images/logo.jpg" alt="">
-          </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+        <img src="./../../images/logo.jpg" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" href="/blog">Inicio
-                </a>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/blog/create">Crear Post
-                <span class="sr-only">(current)</span>
+              <span class="sr-only">(current)</span>
             </a>
           </li>
         </ul>
@@ -34,39 +38,40 @@
     </div>
   </nav>
 
-  
 
-  <form action="/blog/update/<%= id %>" class=" text-center border border-light p-5 bg-light"   method="post">
+
+  <form action="/blog/update/<%= id %>" class=" text-center border border-light p-5 bg-light" method="post">
     <h1>Editar Publicacion</h1>
     <div class="card-body px-lg-5 pt-0">
-    <% if (locals.id) { %> 
-        <input type="hidden" name="id" value="<%= id  %> "> 
-    <% } %>
-    <div>
-      <div class="form-group">
-        <div class="md-form">
-    <label for="">Titulo</label>
-    <input type="text" class="form-control mb-4" name="title" value="<%= locals.title ? title : '' %>">
-    <% if (locals.errors && locals.errors.title) { %> 
-        <p style="color: red"><%=  errors.title %> </p> 
-    <% } %>
+      <% if (locals.id) { %>
+      <input type="hidden" name="id" value="<%= id  %> ">
+      <% } %>
+      <div>
+        <div class="form-group">
+          <div class="md-form">
+            <label for="">Titulo</label>
+            <input type="text" class="form-control mb-4" name="title" value="<%= locals.title ? title : '' %>">
+            <% if (locals.errors && locals.errors.title) { %>
+            <p style="color: red"><%=  errors.title %> </p>
+            <% } %>
+          </div>
         </div>
+      </div>
+      <div>
+        <div class="form-group">
+          <div class="md-form">
+            <label for="">Mensaje</label>
+            <input type="text" class="form-control mb-4" name="publicacion"
+              value="<%= locals.cpublicacion ? cpublicacion : '' %>">
+            <% if (locals.errors && locals.errors.publicacion) { %>
+            <p style="color: red"><%=  errors.publicacion %> </p>
+            <% } %>
+          </div>
         </div>
-  </div>
-  <div>
-  <div class="form-group">
-    <div class="md-form">
-    <label for="">Mensaje</label>
-    <input type="text" class="form-control mb-4" name="publicacion" value="<%= locals.cpublicacion ? cpublicacion : '' %>">
-    <% if (locals.errors && locals.errors.publicacion) { %> 
-        <p style="color: red"><%=  errors.publicacion %> </p> 
-    <% } %>
-  </div>
-  </div>
-  </div>
-  <div class="w-25 p-3">
-    <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect">Guardar</button>
-    </div>
+      </div>
+      <div class="w-25 p-3">
+        <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect">Guardar</button>
+      </div>
     </div>
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
       <div class="container text-center">
@@ -74,4 +79,5 @@
       </div>
     </footer>
 </body>
+
 </html>

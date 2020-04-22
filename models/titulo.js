@@ -1,9 +1,9 @@
-const {Sequelize, DataTypes} = require('sequelize');
-const {sequelize} = require('./../config/db');
+const { Sequelize, DataTypes } = require('sequelize');
+const { sequelize } = require('./../config/db');
 
 const Model = Sequelize.Model;
 
-class Titulo extends Model {};
+class Titulo extends Model { };
 
 //Titulo.init({
   //  title: {
@@ -12,11 +12,11 @@ class Titulo extends Model {};
     //},
     //publicacion: { 
       //type: DataTypes.STRING(220),
-      
-     
-    
+
+
+
     //}
-    
+
 //}, {
   //  sequelize,
     //modelName: 'titulo'
