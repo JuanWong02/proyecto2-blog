@@ -27,17 +27,21 @@ const {Foto} = require('./../models/foto');
 Usuario.hasMany(Publicacion, {
     onDelete: 'CASCADE',
 });
-Publicacion.belongsTo(Usuario, {
-    onDelete: 'CASCADE'
-});  //getusuario()
+Publicacion.belongsTo(Usuario);  //getusuario()
 
-Usuario.hasMany(Comentario);
+Usuario.hasMany(Comentario, {
+    onDelete: 'CASCADE'
+});
 Comentario.belongsTo(Usuario); //getgetusuario()
 
-Publicacion.hasMany(Comentario);
+Publicacion.hasMany(Comentario,{
+    onDelete: 'CASCADE'
+});
 Comentario.belongsTo(Publicacion); //getpublicacion()
 
-Publicacion.hasOne(Foto);
+Publicacion.hasOne(Foto,{
+    onDelete:'CASCADE'
+});
 
 
 
